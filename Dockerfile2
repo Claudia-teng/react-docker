@@ -1,10 +1,16 @@
-FROM node:16-apline
-
-# Install yarn
-RUN npm install yarn
+FROM ubuntu
 
 # Set working directory
 WORKDIR /app
+
+RUN apt update
+RUN apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN apt-get install -y nodejs
+
+# Install yarn
+RUN npm install yarn -g
+
 # Copy all files from current directory to working dir in image
 COPY . .
 # install node modules and build assets
@@ -13,8 +19,11 @@ RUN yarn build
 RUN apt-get install -y nginx
 
 # Remove default nginx static assets
-RUN rm -rf /usr/share/nginx/html/*
+RUN rm -rf /var/www/html/*
+
+RUN cp -r build/* /var/www/html
 # Copy static assets from builder stage
-COPY /build .
+
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
