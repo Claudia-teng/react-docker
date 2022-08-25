@@ -27,13 +27,13 @@ jobs:
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
     - name: Docker Pull & Run From Hub
       uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          script: 
-            docker login
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
-            docker stop react-docker-container 
-            docker rmi react-docker:latest
-            docker run -d -p 80:80 --name react-docker-container ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: 
+          docker login
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
+          docker stop react-docker-container 
+          docker rmi react-docker:latest
+          docker run -d -p 80:80 --name react-docker-container ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
