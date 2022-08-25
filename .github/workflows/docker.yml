@@ -35,5 +35,5 @@ jobs:
           docker login
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
           docker stop react-docker-container 
-          docker rmi react-docker:latest
+          docker container remove react-docker-container 
           docker run -d -p 80:80 --name react-docker-container ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
