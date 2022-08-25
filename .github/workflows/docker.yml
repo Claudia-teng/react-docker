@@ -36,4 +36,5 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
           docker stop react-docker-container 
           docker container rm react-docker-container 
+          docker image rm claudiateng/react-docker
           docker run -d -p 80:80 --name react-docker-container ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
