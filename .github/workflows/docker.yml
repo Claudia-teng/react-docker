@@ -31,8 +31,8 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           docker login
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
           docker stop react-docker-container 
           docker container rm react-docker-container 
           docker image rm claudiateng/react-docker:latest
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
           docker run -d -p 80:80 --name react-docker-container ${{ secrets.DOCKER_HUB_USERNAME }}/react-docker:latest
